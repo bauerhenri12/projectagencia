@@ -82,6 +82,7 @@ int main(){
             printf("\n");
             printf("Cadastro feito!");
             printf("\n");
+            printf("sdfd");
 
         default:
             break;
