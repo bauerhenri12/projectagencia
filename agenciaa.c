@@ -48,11 +48,20 @@ void printaosnumeros(){
         printf("\n");
     }
 }
+void escrevetudojunto(){
+    int i;
+    for (i = 0; i <= indice; i++)
+    {
+        printaosnomes();
+        printaossobrenomes();
+        printaosnumeros();
+    }
+}
 int exibemenu(){
     int numerodigitado = 0;
     printf("Bem vindo a sua agenda\n");
     printf("------------------------------------\n");
-    printf("Digite 0 se voce quiser encerrar o sistema\nDigite 1 se quiser adicionar um contato\nDigite 2 se voce quiser apagar um contato\nDigite 3 se voce quiser editar um contato\nDigite 4 se voce quiser buscar um contato: ");
+    printf("Digite 9 se voce quiser encerrar o sistema\nDigite 1 se quiser adicionar um contato\nDigite 2 se voce quiser apagar um contato\nDigite 3 se voce quiser editar um contato\nDigite 4 se voce quiser buscar um contato: ");
     scanf("%d",&numerodigitado);
         
     return numerodigitado;
@@ -62,10 +71,9 @@ int main(){
     while (retorno != 0){
         switch (retorno)
         {
-        case 0:
-            printf("Voce encerrou o sistema\n");
-            break;
-        
+        case 9:
+            printf("Voce encerrou o sistema");
+            return 0;
         case 1:
             adicionacontato();
             printf("Nomes");
@@ -82,12 +90,11 @@ int main(){
             printf("\n");
             printf("Cadastro feito!");
             printf("\n");
-            printf("sdfd");
-
         default:
             break;
         }
         retorno = exibemenu();
     }
+    
     return 0;
 }
