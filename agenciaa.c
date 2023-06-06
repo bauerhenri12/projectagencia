@@ -12,8 +12,8 @@
  * 
  * lista_todos_os_nomes[0][Lucas]
  * lista_todos_os_nomes[1][Henrique]
- * lista_todos_sobrenomes[0][Bauer]
- * lista_todos_sobrenomes[1][Bento]
+ * lista_todos_sobrenomes[0][Bento]
+ * lista_todos_sobrenomes[1][Bauer]
  * lista_todos_numeros[0][0981789789]
  * lista_todos_numeros[1][9123123123]
  * 
