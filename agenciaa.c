@@ -2,18 +2,56 @@
 #include <stdlib.h>
 #include <string.h>
 #define LIMIT 400
+
+/** Aqui voce esta criando uma matriz de 400 por 400 para cada dado que quer salvar 
+ *  Ou seja, imagina que vc tem o meu e o seu telefone salvo na lista, vai ficar assim: 
+ * 
+ * [0]['N','O','M','E'], pra simplificar aqui, vou considerar o char[400] como uma String, [0]['Nome'] {Por fins didaticos}
+ * 
+ * Entao vc teria: 
+ * 
+ * lista_todos_os_nomes[0][Lucas]
+ * lista_todos_os_nomes[1][Henrique]
+ * lista_todos_sobrenomes[0][Bauer]
+ * lista_todos_sobrenomes[1][Bento]
+ * lista_todos_numeros[0][0981789789]
+ * lista_todos_numeros[1][9123123123]
+ * 
+ * Ve como é confuso? Vai ter que sempre manter as 3 diferentes listas sincronizadas... é lento o acesso aos dados, etc.
+ * 
+ * 
+ * Idealmente, seria melhor ter sua database assim:
+ * 
+ * [0]['Lucas', 'Bento', '0981789789']
+ * [1]['Henrique, 'Bauer', '9123123123']
+ * ...
+ * 
+ * Concorda? 
+ * 
+ * Olha esse material aqui: https://www.programiz.com/c-programming/c-structures
+ * 
+ * */
+
 char lista_todos_nomes[LIMIT][LIMIT];
 char lista_todos_sobrenomes[LIMIT][LIMIT];
 char lista_todos_numeros[LIMIT][LIMIT];
+
+/**
+ * Manter um indice global é um pouco arriscado vai contrar principios de programacao funcional,
+ * nao funcionaria se vc melhorar seu sistema para salvar os dados em disco, por exemplo. 
+ * Mas por enquanto, vamos deixar assim, depois te explico como melhorar.
+*/
 int indice = 0;
-void printaosnomes();
+
+
+void printaosnomes();  //'Printa' não né? haha - printNomes() ?
 void printaossobrenomes();
 void printaosnumeros();
 void alterasnomecontato();
 void alterasobrenomecontato();
 void alteranumerocontato();
-void exibemenucontato();
-int exibemenu();
+void exibemenucontato();  //exibeMenuContanto - Camelcase é bem melhor de ler 
+int exibemenu(); //exibeMenu()....
 void adicionacontato(){
     char nome[LIMIT];
     char sobrenome[LIMIT];
@@ -182,6 +220,39 @@ int main(){
         case 2:
             exibemenucontato();
         case 5:
+/**
+ * Imagina vc querendo saber o numero de alguem, da forma que esta mostrando os dados, vai ser:
+ * 
+ * Nomes:
+ * Lucas
+ * Henrique
+ * Sobrenomes:
+ * Bento
+ * Bauer
+ * Numeros:
+ * 0981789789
+ * 9123123123
+ * 
+ * Normalmente os apps listam os dados mais claramente, correto? 
+ * 
+ * Por exemplo: 
+ * 
+ * Contatos
+ * 
+ *  0 - Nome: Lucas Bento 
+ *      Telefone: 0981789789
+ * 
+ *  1 - Henrique Bauer 
+ *      Telefone: 9123123123
+ *  Melhor? 
+ * 
+ * Obs: Vc pode até usar o indice como a chave para editar um contato. AO inves de pedir nome, sobrenome. 
+ * Vc tem uma opcao no menu que é Buscar, por exemplo, ai vc lista os nomes que match a sua pesquisa. 
+ * 
+ *  
+ * 
+*/   
+                
             printf("Nomes");
             printf("\n");
             printaosnomes();
