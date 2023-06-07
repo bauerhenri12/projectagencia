@@ -38,6 +38,8 @@ char lista_todos_numeros[LIMIT][LIMIT];
 * La no link que te mandei -> https://www.programiz.com/c-programming/c-structures
 * Tem como fazer isso, da uma olhada se consegue.
 *
+*
+*. Se voce nao tiver tempo pra fazer isso aqui nao tem problema. Muito bem quanto as outras alteracoes! Well done! 
 */
 
 
