@@ -5,6 +5,42 @@
 char lista_todos_nomes[LIMIT][LIMIT];
 char lista_todos_sobrenomes[LIMIT][LIMIT];
 char lista_todos_numeros[LIMIT][LIMIT];
+
+/**
+* Entao, agora vamos substituir esas matrizes como uma struct pra definir a "classe", ou seja, vamos definir os dados que um contato vai ter:
+*
+* Ja sabemos que vc quer nome, sobrenome, numero. 
+* Entao podemos tentar comecar com:
+* 
+* struct Contato {
+*   char nome[50];
+*   char sobrenome[50];
+*   char telefone[20];
+* }; 
+*
+* Viu ,simples, vc esta definindo uma "classe", um tipo. Vc esta dizendo que um Contato no seu sistema possui esses atributos.
+* 
+* Agora se eu quiser criar um novo contato posso fazer assim:
+*
+* ....
+* contato novoContato; //Vc esta criando uma instancia de um tipo contato, e a variavel que guarda o seu ponteiro pra essa instancia e chamada: novoContato
+*
+* strcpy(novoContato.nome, "Henrique");
+* strcpy(novoContato.sobrenome, "Bauer");
+* strcpy(novoContato.telefone, "9987676776");
+*
+* Se eu quiser output no console: 
+*
+* printf("Nome : %s", novoContato.nome); //por ai vai...
+* 
+* Agora, pra guardar mais de um contanto, vc precisa declarar um array desses contatos, concorda? 
+*
+* La no link que te mandei -> https://www.programiz.com/c-programming/c-structures
+* Tem como fazer isso, da uma olhada se consegue.
+*
+*/
+
+
 int indice = 0;
 void adicionacontato();
 void alterasnomecontato();
