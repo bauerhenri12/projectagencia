@@ -6,12 +6,14 @@ char lista_todos_nomes[LIMIT][LIMIT];
 char lista_todos_sobrenomes[LIMIT][LIMIT];
 char lista_todos_numeros[LIMIT][LIMIT];
 int indice = 0;
+int verificacontato();
 void adicionacontato();
 void alterasnomecontato();
 void alterasobrenomecontato();
 void alteranumerocontato();
 void printnatela();
 void exibemenuapagarcontato();
+void apagacontato();
 void buscacontato();
 void exibemenualterarcontato();
 int exibemenu();
@@ -28,28 +30,50 @@ void adicionacontato(){
     printf("Digite o numero do celular sem () e -:");
     scanf("%s",numerocell);
     fflush(stdin);
-    strcpy(lista_todos_nomes[indice], nome);
-    strcpy(lista_todos_sobrenomes[indice], sobrenome);
-    strcpy(lista_todos_numeros[indice], numerocell);
-    indice++;
+    if(verificacontato(numerocell) == -1){
+        strcpy(lista_todos_nomes[indice], nome);
+        strcpy(lista_todos_sobrenomes[indice], sobrenome);
+        strcpy(lista_todos_numeros[indice], numerocell);
+        indice++;
+    }
+}
+int verificacontato(char numerocell[LIMIT]){
+    int i;
+    for(i = 0; i < indice; i++){
+        if(strcmp(numerocell,lista_todos_numeros[i]) == 0){
+            printf("Numero ja esta cadastrado");
+            printf("\n");
+            return i;
+        }
+    }
+    return -1;
 }
 void alteranomecontato(int i){
     char novonome[LIMIT];
     printf("Digite o novo nome: ");
+    printf("\n");
     scanf("%s", novonome);
     strcpy(lista_todos_nomes[i], novonome);
+    printf("Nome editado!!");
+    printf("\n");
 }
 void alterasobrenomecontato(int i){
     char novosobrenome[LIMIT];
     printf("Digite o novo sobrenome: ");
+    printf("\n");
     scanf("%s", novosobrenome);
     strcpy(lista_todos_sobrenomes[i], novosobrenome);
+    printf("Sobrenome editado!!");
+    printf("\n");
 }
 void alteranumerocontato(int i){
     char novonumero[LIMIT];
     printf("Digite o novo numero: ");
+    printf("\n");
     scanf("%s", novonumero);
     strcpy(lista_todos_nomes[i], novonumero);
+    printf("Numero editado!!");
+    printf("\n");
 }
 void printnatela(){
     int i;
@@ -62,20 +86,15 @@ void printnatela(){
     }
 }
 void exibemenuapagarcontato(){
-    char escolhausuario[LIMIT];
     int i;
     int numeroescolhido = 0;
     char nomeescolhido[LIMIT];
     char sobrenomeescolhido[LIMIT];
     char escolhanumerocelular[LIMIT];
-    printf("Voce tem certeza que quer excluir um contato?");
-    printf("S ou N");
-    scanf("%c",escolhausuario);
-    if(escolhausuario == 'S' || escolhausuario == 's'){
         printf("Vamos excluir o contato!");
         printf("\n");
-        printf("Digite 1 para procurar o contato pelo nome ou digite 2 se voce quiser procurar pelo nome");
-        scanf("%d",numeroescolhido);
+        printf("Digite 1 para procurar o contato pelo nome ou digite 2 se voce quiser procurar pelo numero: ");
+        scanf("%d",&numeroescolhido);
         if(numeroescolhido == 1){
             printf("Digite o nome da pessoa:");
             scanf("%s",nomeescolhido);
@@ -87,9 +106,19 @@ void exibemenuapagarcontato(){
                     scanf("%s",sobrenomeescolhido);
                     printf("\n");
                     if(strcmp(sobrenomeescolhido,lista_todos_sobrenomes[i]) == 0){
-                        //printf("Aqui esta o dados do(a): Nome:%s\nSobrenome:%s\nNumero:%s\n",nomeescolhidobusca,sobrenomeescolhidobusca,lista_todos_numeros[i]);
+                        apagacontato(i);
                         break;
                     }
+                    else if(strcmp(sobrenomeescolhido,lista_todos_sobrenomes[i]) != 0){
+                    printf("Sobrenome nao encontrado");
+                    printf("\n");
+                    break;
+                }
+                }
+                else if(strcmp(nomeescolhido,lista_todos_nomes[i]) != 0){
+                    printf("Nome nao encontrado");
+                    printf("\n");
+                    break;
                 }
             }
         }
@@ -100,9 +129,14 @@ void exibemenuapagarcontato(){
             if(strcmp(escolhanumerocelular,lista_todos_numeros[i]) == 0){
                 printf("Numero encontrado!");
                 printf("\n");
-                //printf("Aqui esta o dados do(a): Nome:%s\nSobrenome:%s\nNumero:%s\n",lista_todos_nomes[i],lista_todos_sobrenomes[i],escolhanumerocelularbusca);
+                apagacontato(i);
                 break;
             }
+            else if(strcmp(escolhanumerocelular,lista_todos_numeros[i]) != 0){
+                    printf("Numero nao encontrado");
+                    printf("\n");
+                    break;
+                }
         }
     }
     else{
@@ -111,10 +145,15 @@ void exibemenuapagarcontato(){
         printf("Tente novamente");
         printf("\n");
     }
-    }
-    else{
-        printf("Tente outra opcao entao!");
-    }
+}
+void apagacontato(int i){
+    int j;
+    for(j = i; j <indice; j++){
+        strcpy(lista_todos_nomes[j],lista_todos_nomes[j+1]);
+        strcpy(lista_todos_sobrenomes[j],lista_todos_sobrenomes[j+1]);
+        strcpy(lista_todos_numeros[j],lista_todos_numeros[j+1]);
+    } 
+    indice = indice - 1;
 }
 void buscacontato(){
     int i;
@@ -140,6 +179,14 @@ void buscacontato(){
                     printf("Aqui esta o dados do(a): Nome:%s\nSobrenome:%s\nNumero:%s\n",nomeescolhidobusca,sobrenomeescolhidobusca,lista_todos_numeros[i]);
                     break;
                 }
+                else if(strcmp(sobrenomeescolhidobusca,lista_todos_sobrenomes[i]) != 0){
+                printf("Sobrenome nao encontrado");
+                printf("\n");
+            }
+            }
+            else if(strcmp(nomeescolhidobusca,lista_todos_nomes[i]) != 0){
+                printf("Nome nao encontrado");
+                printf("\n");
             }
         }
     }
@@ -152,6 +199,10 @@ void buscacontato(){
                 printf("\n");
                 printf("Aqui esta o dados do(a): Nome:%s\nSobrenome:%s\nNumero:%s\n",lista_todos_nomes[i],lista_todos_sobrenomes[i],escolhanumerocelularbusca);
                 break;
+            }
+            else if(strcmp(escolhanumerocelularbusca,lista_todos_numeros[i]) != 0){
+                printf("Numero nao encontrado");
+                printf("\n");
             }
         }
     }
@@ -195,12 +246,21 @@ void exibemenualterarcontato(){
                         break;
                     case 2:
                         alterasobrenomecontato(i);
+                        break;
                     case 3:
                         alteranumerocontato(i);
                     default:
                         break;
                     }
                 }
+                else if(strcmp(sobrenomeescolhido,lista_todos_sobrenomes[i]) != 0){
+                    printf("Sobrenome nao encontrado");
+                    printf("\n");
+                }
+            }
+            else if(strcmp(nomeescolhido,lista_todos_nomes[i]) != 0){
+                printf("Nome nao encontrado");
+                printf("\n");
             }
         }
     }
@@ -221,11 +281,16 @@ void exibemenualterarcontato(){
                         break;
                     case 2:
                         alterasobrenomecontato(i);
+                        break;
                     case 3:
                         alteranumerocontato(i);
                     default:
                         break;
                     }
+            }
+            else if(strcmp(escolhanumerocelular,lista_todos_numeros[i]) != 0){
+                printf("Numero nao encontrado");
+                printf("\n");
             }
         }
     }else{
@@ -239,8 +304,7 @@ int exibemenu(){
     int numerodigitado = 0;
     printf("Bem vindo a sua agenda\n");
     printf("------------------------------------\n");
-    system("cls");
-    printf("Digite 9 se voce quiser encerrar o sistema\nDigite 1 se quiser adicionar um contato\nDigite 2 se voce quiser editar um contato\nDigite 3 se voce quiser apagar um contato\nDigite 4 se voce quiser buscar um contato\nDigite 5 para ver tudo: ");
+    printf("Digite 9 se voce quiser encerrar o sistema\nDigite 1 se quiser adicionar um contato\nDigite 2 se voce quiser editar um contato\nDigite 3 se voce quiser apagar um contato\nDigite 4 se voce quiser buscar um contato\nDigite 5 para ver sua agenda: ");
     scanf("%d",&numerodigitado);
     return numerodigitado;
 }
@@ -254,16 +318,17 @@ int main(){
             return 0;
         case 1:
             adicionacontato();
-            printf("Cadastro feito!");
-            printf("\n");
             break;
         case 2:
+            // perfumaria feita
             exibemenualterarcontato();
             break;
         case 3:
+            //perfumaria feita
             exibemenuapagarcontato();
             break;
         case 4:
+            //perfumaria feita
             buscacontato();
             break;
         case 5:
